@@ -1,5 +1,4 @@
 ﻿using Nexar.Client;
-using Nexar.ReleaseComponent.Types;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +12,6 @@ namespace Nexar.ReleaseComponent
 {
     partial class ReleaseWindow : Window
     {
-        private const string cVideoContentTypeId = "46F5A583-0605-48D5-A7E2-8119124377B7";
         private static string _workspaceUrl;
         private static string _lastWorkspaceUrl;
         private static IMyRevisionNamingScheme[] _schemes;
