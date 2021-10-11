@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31019.35
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexar.ReleaseComponent", "Nexar.ReleaseComponent\Nexar.ReleaseComponent.csproj", "{3C7CED1B-EE58-4703-98A6-BE93920D62F0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nexar.Client", "Nexar.Client\Nexar.Client.csproj", "{3E69E470-DA92-437A-A2E9-A964A1FF4D16}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3C7CED1B-EE58-4703-98A6-BE93920D62F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C7CED1B-EE58-4703-98A6-BE93920D62F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C7CED1B-EE58-4703-98A6-BE93920D62F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C7CED1B-EE58-4703-98A6-BE93920D62F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E69E470-DA92-437A-A2E9-A964A1FF4D16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E69E470-DA92-437A-A2E9-A964A1FF4D16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E69E470-DA92-437A-A2E9-A964A1FF4D16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E69E470-DA92-437A-A2E9-A964A1FF4D16}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C50ADE50-2BF1-4095-B3B4-B5B5021883EB}
+	EndGlobalSection
+EndGlobal
