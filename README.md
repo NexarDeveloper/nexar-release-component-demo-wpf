@@ -44,13 +44,7 @@ Relative path are resolved with the folder of app executable as the root path.
 Make sure the life cycle definition has Symbol, Footprint, and Component content types enables.
 Use Altium Designer in order to configure.
 
-If "Enable video content" is checked then this video content type is created in the current workspace:
-
-    "contentTypeId": "46F5A583-0605-48D5-A7E2-8119124377B7",
-    "name": "bridge-video",
-    "description": "video"
-
-The "Reset" button resets fields with to their default values with new time stamp suffix.
+The "Reset" button resets fields to the default values with a new time stamp added.
 
 The "Release" button calls the release component mutation and closes the dialog.
 
