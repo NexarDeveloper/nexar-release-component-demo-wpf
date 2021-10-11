@@ -19,11 +19,11 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Column="0" Grid.Row="0">Release folder</TextBlock>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="0">Release folder</TextBlock>
                 <TextBox Margin="1" Grid.Column="1" Grid.Row="0" Name="TextSymbolReleaseFolder"/>
-                <TextBlock Grid.Column="0" Grid.Row="1">Item name</TextBlock>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="1">Item name</TextBlock>
                 <TextBox Margin="1" Grid.Column="1" Grid.Row="1" Name="TextSymbolItemName"/>
-                <TextBlock Grid.Column="0" Grid.Row="2">Data folder</TextBlock>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="2">Data folder</TextBlock>
                 <TextBox Margin="1" Grid.Column="1" Grid.Row="2" Name="TextSymbolDataFolder" Text="..\..\Data\Symbol"/>
             </Grid>
         </GroupBox>
@@ -39,11 +39,11 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Column="0" Grid.Row="0">Release folder</TextBlock>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="0">Release folder</TextBlock>
                 <TextBox Margin="1" Grid.Column="1" Grid.Row="0" Name="TextFootprintReleaseFolder"/>
-                <TextBlock Grid.Column="0" Grid.Row="1">Item name</TextBlock>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="1">Item name</TextBlock>
                 <TextBox Margin="1" Grid.Column="1" Grid.Row="1" Name="TextFootprintItemName"/>
-                <TextBlock Grid.Column="0" Grid.Row="2">Data folder</TextBlock>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="2">Data folder</TextBlock>
                 <TextBox Margin="1" Grid.Column="1" Grid.Row="2" Name="TextFootprintDataFolder" Text="..\..\Data\Footprint"/>
             </Grid>
         </GroupBox>
@@ -58,9 +58,9 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Column="0" Grid.Row="0">Release folder</TextBlock>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="0">Release folder</TextBlock>
                 <TextBox Margin="1" Grid.Column="1" Grid.Row="0" Name="TextComponentReleaseFolder"/>
-                <TextBlock Grid.Column="0" Grid.Row="1">Item name</TextBlock>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="1">Item name</TextBlock>
                 <TextBox Margin="1" Grid.Column="1" Grid.Row="1" Name="TextComponentItemName"/>
             </Grid>
         </GroupBox>
@@ -75,9 +75,9 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Column="0" Grid.Row="0">Parameter1</TextBlock>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="0">Parameter1</TextBlock>
                 <TextBox Margin="1" Grid.Column="1" Grid.Row="0" Name="TextParameter1">Parameter1 Content</TextBox>
-                <TextBlock Grid.Column="0" Grid.Row="1">Parameter2</TextBlock>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="1">Parameter2</TextBlock>
                 <TextBox Margin="1" Grid.Column="1" Grid.Row="1" Name="TextParameter2">Parameter2 Content</TextBox>
             </Grid>
         </GroupBox>
@@ -92,9 +92,9 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Column="0" Grid.Row="0">Revision naming scheme</TextBlock>
-                <ComboBox Grid.Column="1" Grid.Row="0" Margin="1" Name="ComboSchemes" />
-                <TextBlock Grid.Column="0" Grid.Row="1">Life cycle definition</TextBlock>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="0">Revision naming scheme</TextBlock>
+                <ComboBox Margin="1" Grid.Column="1" Grid.Row="0" Name="ComboSchemes" />
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="1">Life cycle definition</TextBlock>
                 <ComboBox Margin="1" Grid.Column="1" Grid.Row="1" Name="ComboCycles"></ComboBox>
             </Grid>
         </GroupBox>
