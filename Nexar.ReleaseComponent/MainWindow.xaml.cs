@@ -220,10 +220,10 @@ namespace Nexar.ReleaseComponent
 
                     var sb = new StringBuilder();
                     sb.AppendLine();
-                    if (revision.Description != null)
-                        sb.AppendLine($"Description: {revision.Description}");
                     if (revision.Comment != null)
                         sb.AppendLine($"Comment: {revision.Comment}");
+                    if (revision.Description != null)
+                        sb.AppendLine($"Description: {revision.Description}");
                     sb.AppendLine($"{component.Tag.Name} is in the {revision.LifeCycleState.Name} state.");
                     if (revision.ChildCount > 0)
                         sb.AppendLine($"{component.Tag.Name} has {revision.ChildCount} dependencies.");

@@ -8,27 +8,24 @@
         Title="Release" Height="565" Width="520" SizeToContent="Height" ResizeMode="NoResize">
     <StackPanel Margin="4">
         <GroupBox>
-            <GroupBox.Header>Symbols</GroupBox.Header>
+            <GroupBox.Header>Misc.</GroupBox.Header>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*" />
                     <ColumnDefinition Width="4*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Margin="1" Grid.Column="0" Grid.Row="0">Release folder</TextBlock>
-                <TextBox Margin="1" Grid.Column="1" Grid.Row="0" Name="TextSymbolReleaseFolder"/>
-                <TextBlock Margin="1" Grid.Column="0" Grid.Row="1">Item name</TextBlock>
-                <TextBox Margin="1" Grid.Column="1" Grid.Row="1" Name="TextSymbolItemName"/>
-                <TextBlock Margin="1" Grid.Column="0" Grid.Row="2">Data folder</TextBlock>
-                <TextBox Margin="1" Grid.Column="1" Grid.Row="2" Name="TextSymbolDataFolder" Text="..\..\Data\Symbol"/>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="0">Revision naming scheme</TextBlock>
+                <ComboBox Margin="1" Grid.Column="1" Grid.Row="0" Name="ComboSchemes" />
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="1">Life cycle definition</TextBlock>
+                <ComboBox Margin="1" Grid.Column="1" Grid.Row="1" Name="ComboCycles"></ComboBox>
             </Grid>
         </GroupBox>
         <GroupBox>
-            <GroupBox.Header>Footprints</GroupBox.Header>
+            <GroupBox.Header>Component</GroupBox.Header>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*" />
@@ -37,24 +34,6 @@
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <TextBlock Margin="1" Grid.Column="0" Grid.Row="0">Release folder</TextBlock>
-                <TextBox Margin="1" Grid.Column="1" Grid.Row="0" Name="TextFootprintReleaseFolder"/>
-                <TextBlock Margin="1" Grid.Column="0" Grid.Row="1">Item name</TextBlock>
-                <TextBox Margin="1" Grid.Column="1" Grid.Row="1" Name="TextFootprintItemName"/>
-                <TextBlock Margin="1" Grid.Column="0" Grid.Row="2">Data folder</TextBlock>
-                <TextBox Margin="1" Grid.Column="1" Grid.Row="2" Name="TextFootprintDataFolder" Text="..\..\Data\Footprint"/>
-            </Grid>
-        </GroupBox>
-        <GroupBox>
-            <GroupBox.Header>Components</GroupBox.Header>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*" />
-                    <ColumnDefinition Width="4*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
@@ -62,6 +41,10 @@
                 <TextBox Margin="1" Grid.Column="1" Grid.Row="0" Name="TextComponentReleaseFolder"/>
                 <TextBlock Margin="1" Grid.Column="0" Grid.Row="1">Item name</TextBlock>
                 <TextBox Margin="1" Grid.Column="1" Grid.Row="1" Name="TextComponentItemName"/>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="2">Comment</TextBlock>
+                <TextBox Margin="1" Grid.Column="1" Grid.Row="2" Name="TextComponentComment"/>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="3">Description</TextBlock>
+                <TextBox Margin="1" Grid.Column="1" Grid.Row="3" Name="TextComponentDescription"/>
             </Grid>
         </GroupBox>
         <GroupBox>
@@ -82,7 +65,7 @@
             </Grid>
         </GroupBox>
         <GroupBox>
-            <GroupBox.Header>Misc.</GroupBox.Header>
+            <GroupBox.Header>Symbol</GroupBox.Header>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*" />
@@ -91,11 +74,34 @@
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Margin="1" Grid.Column="0" Grid.Row="0">Revision naming scheme</TextBlock>
-                <ComboBox Margin="1" Grid.Column="1" Grid.Row="0" Name="ComboSchemes" />
-                <TextBlock Margin="1" Grid.Column="0" Grid.Row="1">Life cycle definition</TextBlock>
-                <ComboBox Margin="1" Grid.Column="1" Grid.Row="1" Name="ComboCycles"></ComboBox>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="0">Release folder</TextBlock>
+                <TextBox Margin="1" Grid.Column="1" Grid.Row="0" Name="TextSymbolReleaseFolder"/>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="1">Item name</TextBlock>
+                <TextBox Margin="1" Grid.Column="1" Grid.Row="1" Name="TextSymbolItemName"/>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="2">Data folder</TextBlock>
+                <TextBox Margin="1" Grid.Column="1" Grid.Row="2" Name="TextSymbolDataFolder" Text="..\..\Data\Symbol"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox>
+            <GroupBox.Header>Footprint</GroupBox.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="4*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="0">Release folder</TextBlock>
+                <TextBox Margin="1" Grid.Column="1" Grid.Row="0" Name="TextFootprintReleaseFolder"/>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="1">Item name</TextBlock>
+                <TextBox Margin="1" Grid.Column="1" Grid.Row="1" Name="TextFootprintItemName"/>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="2">Data folder</TextBlock>
+                <TextBox Margin="1" Grid.Column="1" Grid.Row="2" Name="TextFootprintDataFolder" Text="..\..\Data\Footprint"/>
             </Grid>
         </GroupBox>
         <Grid>

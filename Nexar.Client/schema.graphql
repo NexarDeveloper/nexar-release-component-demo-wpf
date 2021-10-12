@@ -1136,17 +1136,19 @@ input DesReleaseComponentFileInput {
 
 input DesReleaseComponentInput {
   workspaceUrl: String!
+  revisionNamingSchemeId: String!
+  lifeCycleDefinitionId: String!
+  componentReleaseFolder: String!
+  componentItemName: String!
+  componentComment: String
+  componentDescription: String
+  parameters: [DesRevisionParameterInput!]!
   symbolReleaseFolder: String!
   symbolItemName: String!
   symbolFiles: [DesReleaseComponentFileInput!]!
   footprintReleaseFolder: String!
   footprintItemName: String!
   footprintFiles: [DesReleaseComponentFileInput!]!
-  componentReleaseFolder: String!
-  componentItemName: String!
-  parameters: [DesRevisionParameterInput!]!
-  revisionNamingSchemeId: String!
-  lifeCycleDefinitionId: String!
 }
 
 "A release is a published version of a design with additional generated files for manufacturing."

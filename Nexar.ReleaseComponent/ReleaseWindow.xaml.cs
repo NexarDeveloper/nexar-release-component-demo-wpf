@@ -75,13 +75,16 @@ namespace Nexar.ReleaseComponent
         {
             var stamp = DateTime.UtcNow.ToString("yyMMdd_hhmmss");
 
-            TextSymbolReleaseFolder.Text = $"Symbols {stamp}";
-            TextFootprintReleaseFolder.Text = $"Footprints {stamp}";
             TextComponentReleaseFolder.Text = $"Components {stamp}";
-
-            TextSymbolItemName.Text = $"SYM {stamp}";
-            TextFootprintItemName.Text = $"PCC {stamp}";
             TextComponentItemName.Text = $"CMP {stamp}";
+            TextComponentComment.Text = $"CMP {stamp}";
+            TextComponentDescription.Text = $"Description {stamp}";
+
+            TextSymbolReleaseFolder.Text = $"Symbols {stamp}";
+            TextSymbolItemName.Text = $"SYM {stamp}";
+
+            TextFootprintReleaseFolder.Text = $"Footprints {stamp}";
+            TextFootprintItemName.Text = $"PCC {stamp}";
         }
 
         // Called on clicking the "Reset" button.
@@ -156,21 +159,23 @@ namespace Nexar.ReleaseComponent
             var input = new DesReleaseComponentInput
             {
                 WorkspaceUrl = _workspaceUrl,
+                RevisionNamingSchemeId = _schemes[ComboSchemes.SelectedIndex].RevisionNamingSchemeId,
+                LifeCycleDefinitionId = _cycles[ComboCycles.SelectedIndex].LifeCycleDefinitionId,
+                ComponentReleaseFolder = TextComponentReleaseFolder.Text,
+                ComponentItemName = TextComponentItemName.Text,
+                ComponentComment = TextComponentComment.Text,
+                ComponentDescription = TextComponentDescription.Text,
+                Parameters = new DesRevisionParameterInput[]
+                {
+                        new DesRevisionParameterInput { Name = "Parameter1", Value = TextParameter1.Text },
+                        new DesRevisionParameterInput { Name = "Parameter2", Value = TextParameter2.Text },
+                },
                 SymbolReleaseFolder = TextSymbolReleaseFolder.Text,
                 SymbolItemName = TextSymbolItemName.Text,
                 SymbolFiles = symbolUploads,
                 FootprintReleaseFolder = TextFootprintReleaseFolder.Text,
                 FootprintItemName = TextFootprintItemName.Text,
                 FootprintFiles = footprintUploads,
-                ComponentReleaseFolder = TextComponentReleaseFolder.Text,
-                ComponentItemName = TextComponentItemName.Text,
-                Parameters = new DesRevisionParameterInput[]
-                {
-                        new DesRevisionParameterInput { Name = "Parameter1", Value = TextParameter1.Text },
-                        new DesRevisionParameterInput { Name = "Parameter2", Value = TextParameter2.Text },
-                },
-                RevisionNamingSchemeId = _schemes[ComboSchemes.SelectedIndex].RevisionNamingSchemeId,
-                LifeCycleDefinitionId = _cycles[ComboCycles.SelectedIndex].LifeCycleDefinitionId,
             };
 
             Task.Run(async () =>
