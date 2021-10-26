@@ -11,7 +11,25 @@ query ReleaseDefinitions($workspaceUrl: String!) {
     revisionNamingSchemes {
       ...MyRevisionNamingScheme
     }
+    symbolScheme: revisionNamingSchemeByContentTypeKind(kind: SYMBOL) {
+      ...MyRevisionNamingScheme
+    }
+    footprintScheme: revisionNamingSchemeByContentTypeKind(kind: PCB_COMPONENT) {
+      ...MyRevisionNamingScheme
+    }
+    componentScheme: revisionNamingSchemeByContentTypeKind(kind: COMPONENT) {
+      ...MyRevisionNamingScheme
+    }
     lifeCycleDefinitions {
+      ...MyLifeCycleDefinition
+    }
+    symbolLifeCycle: lifeCycleDefinitionByContentTypeKind(kind: SYMBOL) {
+      ...MyLifeCycleDefinition
+    }
+    footprintLifeCycle: lifeCycleDefinitionByContentTypeKind(kind: PCB_COMPONENT) {
+      ...MyLifeCycleDefinition
+    }
+    componentLifeCycle: lifeCycleDefinitionByContentTypeKind(kind: COMPONENT) {
       ...MyLifeCycleDefinition
     }
   }

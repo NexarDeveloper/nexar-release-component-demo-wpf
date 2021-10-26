@@ -5,25 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nexar.ReleaseComponent"
         mc:Ignorable="d"
-        Title="Release" Height="565" Width="520" SizeToContent="Height" ResizeMode="NoResize">
-    <StackPanel Margin="4">
-        <GroupBox>
-            <GroupBox.Header>Misc.</GroupBox.Header>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*" />
-                    <ColumnDefinition Width="4*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <TextBlock Margin="1" Grid.Column="0" Grid.Row="0">Revision naming scheme</TextBlock>
-                <ComboBox Margin="1" Grid.Column="1" Grid.Row="0" Name="ComboSchemes" />
-                <TextBlock Margin="1" Grid.Column="0" Grid.Row="1">Life cycle definition</TextBlock>
-                <ComboBox Margin="1" Grid.Column="1" Grid.Row="1" Name="ComboCycles"></ComboBox>
-            </Grid>
-        </GroupBox>
+        Title="Release" Height="586" Width="520" SizeToContent="Height" ResizeMode="NoResize">
+    <StackPanel>
         <GroupBox>
             <GroupBox.Header>Component</GroupBox.Header>
             <Grid>
@@ -32,6 +15,8 @@
                     <ColumnDefinition Width="4*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -45,6 +30,10 @@
                 <TextBox Margin="1" Grid.Column="1" Grid.Row="2" Name="TextComponentComment"/>
                 <TextBlock Margin="1" Grid.Column="0" Grid.Row="3">Description</TextBlock>
                 <TextBox Margin="1" Grid.Column="1" Grid.Row="3" Name="TextComponentDescription"/>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="4">Revision naming scheme</TextBlock>
+                <ComboBox Margin="1" Grid.Column="1" Grid.Row="4" Name="ComboComponentSchemes" />
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="5">Life cycle definition</TextBlock>
+                <ComboBox Margin="1" Grid.Column="1" Grid.Row="5" Name="ComboComponentCycles"></ComboBox>
             </Grid>
         </GroupBox>
         <GroupBox>
@@ -75,6 +64,8 @@
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <TextBlock Margin="1" Grid.Column="0" Grid.Row="0">Release folder</TextBlock>
                 <TextBox Margin="1" Grid.Column="1" Grid.Row="0" Name="TextSymbolReleaseFolder"/>
@@ -82,6 +73,10 @@
                 <TextBox Margin="1" Grid.Column="1" Grid.Row="1" Name="TextSymbolItemName"/>
                 <TextBlock Margin="1" Grid.Column="0" Grid.Row="2">Data folder</TextBlock>
                 <TextBox Margin="1" Grid.Column="1" Grid.Row="2" Name="TextSymbolDataFolder" Text="..\..\Data\Symbol"/>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="3">Revision naming scheme</TextBlock>
+                <ComboBox Margin="1" Grid.Column="1" Grid.Row="3" Name="ComboSymbolSchemes" />
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="4">Life cycle definition</TextBlock>
+                <ComboBox Margin="1" Grid.Column="1" Grid.Row="4" Name="ComboSymbolCycles"></ComboBox>
             </Grid>
         </GroupBox>
         <GroupBox>
@@ -95,6 +90,8 @@
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <TextBlock Margin="1" Grid.Column="0" Grid.Row="0">Release folder</TextBlock>
                 <TextBox Margin="1" Grid.Column="1" Grid.Row="0" Name="TextFootprintReleaseFolder"/>
@@ -102,6 +99,10 @@
                 <TextBox Margin="1" Grid.Column="1" Grid.Row="1" Name="TextFootprintItemName"/>
                 <TextBlock Margin="1" Grid.Column="0" Grid.Row="2">Data folder</TextBlock>
                 <TextBox Margin="1" Grid.Column="1" Grid.Row="2" Name="TextFootprintDataFolder" Text="..\..\Data\Footprint"/>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="3">Revision naming scheme</TextBlock>
+                <ComboBox Margin="1" Grid.Column="1" Grid.Row="3" Name="ComboFootprintSchemes" />
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="4">Life cycle definition</TextBlock>
+                <ComboBox Margin="1" Grid.Column="1" Grid.Row="4" Name="ComboFootprintCycles"></ComboBox>
             </Grid>
         </GroupBox>
         <Grid>

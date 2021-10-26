@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Nexar.ReleaseComponent
 {
@@ -16,6 +17,12 @@ namespace Nexar.ReleaseComponent
         private static string _lastWorkspaceUrl;
         private static IMyRevisionNamingScheme[] _schemes;
         private static IMyLifeCycleDefinition[] _cycles;
+        private static IMyRevisionNamingScheme _schemeSymbol;
+        private static IMyRevisionNamingScheme _schemeFootprint;
+        private static IMyRevisionNamingScheme _schemeComponent;
+        private static IMyLifeCycleDefinition _cycleSymbol;
+        private static IMyLifeCycleDefinition _cycleFootprint;
+        private static IMyLifeCycleDefinition _cycleComponent;
 
         internal ReleaseWindow(string workspaceUrl)
         {
@@ -40,40 +47,54 @@ namespace Nexar.ReleaseComponent
 
                     // current combo data
                     _schemes = data.RevisionNamingSchemes.OrderBy(x => x.Name).ToArray();
+                    if (_schemes.Length == 0)
+                        throw new Exception("Found no revision naming schemes.");
                     _cycles = data.LifeCycleDefinitions.OrderBy(x => x.Name).ToArray();
+                    if (_cycles.Length == 0)
+                        throw new Exception("Found no life cycle definitions.");
+
+                    // defaults
+                    _schemeSymbol = data.SymbolScheme;
+                    _schemeFootprint = data.FootprintScheme;
+                    _schemeComponent = data.ComponentScheme;
+                    _cycleSymbol = data.SymbolLifeCycle;
+                    _cycleFootprint = data.FootprintLifeCycle;
+                    _cycleComponent = data.ComponentLifeCycle;
 
                     // set the current workspace
                     _lastWorkspaceUrl = _workspaceUrl;
                 }
             }
 
-            // add naming schemes
+            // naming scheme combos
+            void PopulateNamingSchemes(ComboBox combo, IMyRevisionNamingScheme select)
             {
-                if (_schemes.Length == 0)
-                    throw new Exception("Found no revision naming schemes.");
-
                 foreach (var scheme in _schemes)
-                    ComboSchemes.Items.Add(scheme.Name);
+                    combo.Items.Add(scheme.Name);
 
-                ComboSchemes.SelectedIndex = 0;
+                combo.SelectedIndex = Array.FindIndex(_schemes, x => x.RevisionNamingSchemeId == select.RevisionNamingSchemeId);
             }
+            PopulateNamingSchemes(ComboComponentSchemes, _schemeComponent);
+            PopulateNamingSchemes(ComboSymbolSchemes, _schemeSymbol);
+            PopulateNamingSchemes(ComboFootprintSchemes, _schemeFootprint);
 
-            // add cycle definitions
+            // cycle definition combos
+            void PopulateLifeCycles(ComboBox combo, IMyLifeCycleDefinition select)
             {
-                if (_cycles.Length == 0)
-                    throw new Exception("Found no life cycle definitions.");
-
                 foreach (var cycle in _cycles)
-                    ComboCycles.Items.Add(cycle.Name);
+                    combo.Items.Add(cycle.Name);
 
-                ComboCycles.SelectedIndex = 0;
+                combo.SelectedIndex = Array.FindIndex(_cycles, x => x.LifeCycleDefinitionId == select.LifeCycleDefinitionId);
             }
+            PopulateLifeCycles(ComboComponentCycles, _cycleComponent);
+            PopulateLifeCycles(ComboSymbolCycles, _cycleSymbol);
+            PopulateLifeCycles(ComboFootprintCycles, _cycleFootprint);
         }
 
         // Called on opening and clicking the "Reset" button.
         private void Reset()
         {
-            var stamp = DateTime.UtcNow.ToString("yyMMdd_hhmmss");
+            var stamp = DateTime.UtcNow.ToString("yyMMdd_HHmmss");
 
             TextComponentReleaseFolder.Text = $"Components {stamp}";
             TextComponentItemName.Text = $"CMP {stamp}";
@@ -159,12 +180,12 @@ namespace Nexar.ReleaseComponent
             var input = new DesReleaseComponentInput
             {
                 WorkspaceUrl = _workspaceUrl,
-                RevisionNamingSchemeId = _schemes[ComboSchemes.SelectedIndex].RevisionNamingSchemeId,
-                LifeCycleDefinitionId = _cycles[ComboCycles.SelectedIndex].LifeCycleDefinitionId,
                 ComponentReleaseFolder = TextComponentReleaseFolder.Text,
                 ComponentItemName = TextComponentItemName.Text,
                 ComponentComment = TextComponentComment.Text,
                 ComponentDescription = TextComponentDescription.Text,
+                ComponentRevisionNamingSchemeId = _schemes[ComboComponentSchemes.SelectedIndex].RevisionNamingSchemeId,
+                ComponentLifeCycleDefinitionId = _cycles[ComboComponentCycles.SelectedIndex].LifeCycleDefinitionId,
                 Parameters = new DesRevisionParameterInput[]
                 {
                         new DesRevisionParameterInput { Name = "Parameter1", Value = TextParameter1.Text },
@@ -173,9 +194,13 @@ namespace Nexar.ReleaseComponent
                 SymbolReleaseFolder = TextSymbolReleaseFolder.Text,
                 SymbolItemName = TextSymbolItemName.Text,
                 SymbolFiles = symbolUploads,
+                SymbolRevisionNamingSchemeId = _schemes[ComboSymbolSchemes.SelectedIndex].RevisionNamingSchemeId,
+                SymbolLifeCycleDefinitionId = _cycles[ComboSymbolCycles.SelectedIndex].LifeCycleDefinitionId,
                 FootprintReleaseFolder = TextFootprintReleaseFolder.Text,
                 FootprintItemName = TextFootprintItemName.Text,
                 FootprintFiles = footprintUploads,
+                FootprintRevisionNamingSchemeId = _schemes[ComboFootprintSchemes.SelectedIndex].RevisionNamingSchemeId,
+                FootprintLifeCycleDefinitionId = _cycles[ComboFootprintCycles.SelectedIndex].LifeCycleDefinitionId,
             };
 
             Task.Run(async () =>
