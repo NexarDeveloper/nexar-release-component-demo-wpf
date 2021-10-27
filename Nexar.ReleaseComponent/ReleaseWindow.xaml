@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Nexar.ReleaseComponent"
         mc:Ignorable="d"
         Title="Release" Height="586" Width="520" SizeToContent="Height" ResizeMode="NoResize">
-    <StackPanel>
+    <StackPanel Margin="4">
         <GroupBox>
             <GroupBox.Header>Component</GroupBox.Header>
             <Grid>
