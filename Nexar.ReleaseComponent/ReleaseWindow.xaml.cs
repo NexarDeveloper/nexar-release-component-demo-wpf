@@ -42,14 +42,14 @@ namespace Nexar.ReleaseComponent
                     {
                         var res = await App.Client.ReleaseDefinitions.ExecuteAsync(_workspaceUrl);
                         ClientHelper.EnsureNoErrors(res);
-                        return res.Data.DesLibrary;
+                        return res.Data;
                     }).Result;
 
                     // current combo data
-                    _schemes = data.RevisionNamingSchemes.OrderBy(x => x.Name).ToArray();
+                    _schemes = data.DesRevisionNamingSchemes.OrderBy(x => x.Name).ToArray();
                     if (_schemes.Length == 0)
                         throw new Exception("Found no revision naming schemes.");
-                    _cycles = data.LifeCycleDefinitions.OrderBy(x => x.Name).ToArray();
+                    _cycles = data.DesLifeCycleDefinitions.OrderBy(x => x.Name).ToArray();
                     if (_cycles.Length == 0)
                         throw new Exception("Found no life cycle definitions.");
 

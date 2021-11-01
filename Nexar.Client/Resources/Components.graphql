@@ -7,31 +7,29 @@
 }
 
 query ReleaseDefinitions($workspaceUrl: String!) {
-  desLibrary(workspaceUrl: $workspaceUrl) {
-    revisionNamingSchemes {
-      ...MyRevisionNamingScheme
-    }
-    symbolScheme: revisionNamingSchemeByContentTypeKind(kind: SYMBOL) {
-      ...MyRevisionNamingScheme
-    }
-    footprintScheme: revisionNamingSchemeByContentTypeKind(kind: PCB_COMPONENT) {
-      ...MyRevisionNamingScheme
-    }
-    componentScheme: revisionNamingSchemeByContentTypeKind(kind: COMPONENT) {
-      ...MyRevisionNamingScheme
-    }
-    lifeCycleDefinitions {
-      ...MyLifeCycleDefinition
-    }
-    symbolLifeCycle: lifeCycleDefinitionByContentTypeKind(kind: SYMBOL) {
-      ...MyLifeCycleDefinition
-    }
-    footprintLifeCycle: lifeCycleDefinitionByContentTypeKind(kind: PCB_COMPONENT) {
-      ...MyLifeCycleDefinition
-    }
-    componentLifeCycle: lifeCycleDefinitionByContentTypeKind(kind: COMPONENT) {
-      ...MyLifeCycleDefinition
-    }
+  desRevisionNamingSchemes(workspaceUrl: $workspaceUrl) {
+    ...MyRevisionNamingScheme
+  }
+  symbolScheme: desRevisionNamingSchemeByContentTypeKind(workspaceUrl: $workspaceUrl, kind: SYMBOL) {
+    ...MyRevisionNamingScheme
+  }
+  footprintScheme: desRevisionNamingSchemeByContentTypeKind(workspaceUrl: $workspaceUrl, kind: PCB_COMPONENT) {
+    ...MyRevisionNamingScheme
+  }
+  componentScheme: desRevisionNamingSchemeByContentTypeKind(workspaceUrl: $workspaceUrl, kind: COMPONENT) {
+    ...MyRevisionNamingScheme
+  }
+  desLifeCycleDefinitions(workspaceUrl: $workspaceUrl) {
+    ...MyLifeCycleDefinition
+  }
+  symbolLifeCycle: desLifeCycleDefinitionByContentTypeKind(workspaceUrl: $workspaceUrl, kind: SYMBOL) {
+    ...MyLifeCycleDefinition
+  }
+  footprintLifeCycle: desLifeCycleDefinitionByContentTypeKind(workspaceUrl: $workspaceUrl, kind: PCB_COMPONENT) {
+    ...MyLifeCycleDefinition
+  }
+  componentLifeCycle: desLifeCycleDefinitionByContentTypeKind(workspaceUrl: $workspaceUrl, kind: COMPONENT) {
+    ...MyLifeCycleDefinition
   }
 }
 

@@ -16,6 +16,16 @@ type Query {
   desWorkspaceById("The node identifier for a workspace." id: ID!): DesWorkspace
   "Get a list of workspace locations."
   desWorkspaceLocations: [DesWorkspaceLocation!]!
+  "Get a list of specified settings."
+  desSettings(workspaceUrl: String! names: [String!]!): [String]!
+  "Gets life cycle definitions."
+  desLifeCycleDefinitions(workspaceUrl: String!): [DesLifeCycleDefinition!]!
+  "Gets the first allowed life cycle by the content kind."
+  desLifeCycleDefinitionByContentTypeKind(workspaceUrl: String! kind: DesContentTypeKind!): DesLifeCycleDefinition!
+  "Gets revision naming schemes."
+  desRevisionNamingSchemes(workspaceUrl: String!): [DesRevisionNamingScheme!]!
+  "Gets the first allowed naming scheme by the content kind."
+  desRevisionNamingSchemeByContentTypeKind(workspaceUrl: String! kind: DesContentTypeKind!): DesRevisionNamingScheme!
   desSharedWithMe: DesSharedWithMe!
   desTeam(workspaceUrl: String!): DesTeam!
   desUsers(workspaceUrl: String! ids: [String!]!): [DesUser]!
@@ -424,14 +434,6 @@ type DesLayerProperty {
 type DesLibrary {
   "Gets library components."
   components(first: Int after: String last: Int before: String): DesComponentConnection
-  "Gets revision naming schemes."
-  revisionNamingSchemes: [DesRevisionNamingScheme!]!
-  "Gets life cycle definitions."
-  lifeCycleDefinitions: [DesLifeCycleDefinition!]!
-  "Gets the first allowed naming scheme by the content kind."
-  revisionNamingSchemeByContentTypeKind(kind: DesContentTypeKind!): DesRevisionNamingScheme!
-  "Gets the first allowed life cycle by the content kind."
-  lifeCycleDefinitionByContentTypeKind(kind: DesContentTypeKind!): DesLifeCycleDefinition!
 }
 
 "Revision naming scheme details obtained by `desLibrary\/lifeCycleDefinitions`."
