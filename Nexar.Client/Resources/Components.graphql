@@ -10,6 +10,13 @@ query ReleaseDefinitions($workspaceUrl: String!) {
   desRevisionNamingSchemes(workspaceUrl: $workspaceUrl) {
     ...MyRevisionNamingScheme
   }
+  desSettings(
+    workspaceUrl: $workspaceUrl
+    names: [
+      "Components.Symbol.ReleaseTargetPath"
+      "Components.Footprint.ReleaseTargetPath"
+    ]
+  )
   symbolScheme: desRevisionNamingSchemeByContentTypeKind(workspaceUrl: $workspaceUrl, kind: SYMBOL) {
     ...MyRevisionNamingScheme
   }

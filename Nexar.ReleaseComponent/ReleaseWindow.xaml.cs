@@ -17,6 +17,8 @@ namespace Nexar.ReleaseComponent
         private static string _lastWorkspaceUrl;
         private static IMyRevisionNamingScheme[] _schemes;
         private static IMyLifeCycleDefinition[] _cycles;
+        private static string _defaultSymbolFolder;
+        private static string _defaultFootprintFolder;
         private static IMyRevisionNamingScheme _schemeSymbol;
         private static IMyRevisionNamingScheme _schemeFootprint;
         private static IMyRevisionNamingScheme _schemeComponent;
@@ -32,8 +34,6 @@ namespace Nexar.ReleaseComponent
 
             using (new WaitCursor())
             {
-                Reset();
-
                 // once per workspace
                 if (_lastWorkspaceUrl != _workspaceUrl)
                 {
@@ -54,6 +54,8 @@ namespace Nexar.ReleaseComponent
                         throw new Exception("Found no life cycle definitions.");
 
                     // defaults
+                    _defaultSymbolFolder = data.DesSettings[0];
+                    _defaultFootprintFolder = data.DesSettings[1];
                     _schemeSymbol = data.SymbolScheme;
                     _schemeFootprint = data.FootprintScheme;
                     _schemeComponent = data.ComponentScheme;
@@ -65,6 +67,9 @@ namespace Nexar.ReleaseComponent
                     _lastWorkspaceUrl = _workspaceUrl;
                 }
             }
+
+            // set initial names
+            Reset();
 
             // naming scheme combos
             void PopulateNamingSchemes(ComboBox combo, IMyRevisionNamingScheme select)
@@ -101,10 +106,10 @@ namespace Nexar.ReleaseComponent
             TextComponentComment.Text = $"CMP {stamp}";
             TextComponentDescription.Text = $"Description {stamp}";
 
-            TextSymbolReleaseFolder.Text = $"Symbols {stamp}";
+            TextSymbolReleaseFolder.Text = _defaultSymbolFolder ?? $"Symbols {stamp}";
             TextSymbolItemName.Text = $"SYM {stamp}";
 
-            TextFootprintReleaseFolder.Text = $"Footprints {stamp}";
+            TextFootprintReleaseFolder.Text = _defaultFootprintFolder ?? $"Footprints {stamp}";
             TextFootprintItemName.Text = $"PCC {stamp}";
         }
 
