@@ -16,7 +16,7 @@ type Query {
   desWorkspaceById("The node identifier for a workspace." id: ID!): DesWorkspace
   "Get a list of workspace locations."
   desWorkspaceLocations: [DesWorkspaceLocation!]!
-  "Get a list of specified settings."
+  "Gets the specified settings."
   desSettings(workspaceUrl: String! names: [String!]!): [String]!
   "Gets life cycle definitions."
   desLifeCycleDefinitions(workspaceUrl: String!): [DesLifeCycleDefinition!]!
@@ -1161,13 +1161,17 @@ input DesReleaseComponentInput {
   componentComment: String
   componentDescription: String
   parameters: [DesRevisionParameterInput!]!
+  "The symbol folder path, existing or to be created."
   symbolReleaseFolder: String!
-  symbolItemName: String!
+  "The symbol name. Use null to be generated."
+  symbolItemName: String
   symbolFiles: [DesReleaseComponentFileInput!]!
   symbolRevisionNamingSchemeId: String
   symbolLifeCycleDefinitionId: String
+  "The footprint folder path, existing or to be created."
   footprintReleaseFolder: String!
-  footprintItemName: String!
+  "The footprint name. Use null to be generated"
+  footprintItemName: String
   footprintFiles: [DesReleaseComponentFileInput!]!
   footprintRevisionNamingSchemeId: String
   footprintLifeCycleDefinitionId: String

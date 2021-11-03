@@ -137,6 +137,14 @@ namespace Nexar.ReleaseComponent
             }
         }
 
+        // Called on clicking the "Generate item names."
+        private void ClickGenerateItemNames(object sender, RoutedEventArgs e)
+        {
+            var useUserDefinedNames = CheckGenerateItemNames.IsChecked != true;
+            TextSymbolItemName.IsEnabled = useUserDefinedNames;
+            TextFootprintItemName.IsEnabled = useUserDefinedNames;
+        }
+
         /// <summary>
         /// Uploads folder files.
         /// </summary>
@@ -169,7 +177,7 @@ namespace Nexar.ReleaseComponent
         /// <summary>
         /// Calls release component with the current data.
         /// </summary>
-        void ReleaseComponent()
+        private void ReleaseComponent()
         {
             // upload files
             var symbolDirectory = App.ResolveDirectory(TextSymbolDataFolder.Text);
@@ -182,6 +190,7 @@ namespace Nexar.ReleaseComponent
                 footprintUploads = await UploadFilesAsync(footprintDirectory);
             }).Wait();
 
+            var useUserDefinedNames = CheckGenerateItemNames.IsChecked != true;
             var input = new DesReleaseComponentInput
             {
                 WorkspaceUrl = _workspaceUrl,
@@ -197,12 +206,12 @@ namespace Nexar.ReleaseComponent
                         new DesRevisionParameterInput { Name = "Parameter2", Value = TextParameter2.Text },
                 },
                 SymbolReleaseFolder = TextSymbolReleaseFolder.Text,
-                SymbolItemName = TextSymbolItemName.Text,
+                SymbolItemName = useUserDefinedNames ? TextSymbolItemName.Text : null,
                 SymbolFiles = symbolUploads,
                 SymbolRevisionNamingSchemeId = _schemes[ComboSymbolSchemes.SelectedIndex].RevisionNamingSchemeId,
                 SymbolLifeCycleDefinitionId = _cycles[ComboSymbolCycles.SelectedIndex].LifeCycleDefinitionId,
                 FootprintReleaseFolder = TextFootprintReleaseFolder.Text,
-                FootprintItemName = TextFootprintItemName.Text,
+                FootprintItemName = useUserDefinedNames ? TextFootprintItemName.Text : null,
                 FootprintFiles = footprintUploads,
                 FootprintRevisionNamingSchemeId = _schemes[ComboFootprintSchemes.SelectedIndex].RevisionNamingSchemeId,
                 FootprintLifeCycleDefinitionId = _cycles[ComboFootprintCycles.SelectedIndex].LifeCycleDefinitionId,
