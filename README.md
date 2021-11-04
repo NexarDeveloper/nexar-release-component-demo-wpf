@@ -15,8 +15,8 @@ Visual Studio 2019.
 
 You need your Altium Live credentials and have to be a member of at least one Altium 365 workspace.
 
-In addition, you need an application at [nexar.com] with the Design scope.
-Use the application client ID and secret and set environment variables `NEXAR_CLIENT_ID` and `NEXAR_CLIENT_SECRET`.
+In addition, you need a Nexar application at [nexar.com] with the Design scope.
+Use this application client ID and secret and set the environment variables `NEXAR_CLIENT_ID` and `NEXAR_CLIENT_SECRET`.
 
 ## How to use
 
@@ -31,22 +31,25 @@ The identity server sign in page appears. Enter your credentials and click `Sign
 
 The application window appears with the left tree panel populated with your workspaces.
 
+Select a workspace to enable the "Release" button.
+Click the "Release" button to show the component release dialog with various inputs.
+
 Expand workspaces to component folders, expand folders to components, select a component.
 The right panel shows the component information like description, comment, state, etc.
-
-Click the "Release" button to show the release dialog with various inputs.
 
 ## Release dialog
 
 The symbols and footprint data folders specify existing directories using absolute or relative paths.
 Relative path are resolved with the folder of app executable as the root path.
 
-Make sure the life cycle definition has Symbol, Footprint, and Component content types enables.
+Make sure the life cycle definition has Symbol, Footprint, and Component content types enabled.
 Use Altium Designer in order to configure.
 
 The "Reset" button resets fields to the default values with a new time stamp added.
 
 The "Release" button calls the release component mutation and closes the dialog.
+
+Check "Generate item names" to allow Symbol and Footprint item names generation instead of using user defined.
 
 ## Building blocks
 
