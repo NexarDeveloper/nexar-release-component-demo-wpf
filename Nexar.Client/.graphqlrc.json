@@ -5,8 +5,7 @@
     "strawberryShake": {
       "name": "NexarClient",
       "namespace": "Nexar.Client",
-      "url": "https://api.nexar.com/graphql/",
-      "dependencyInjection": true
+      "url": "https://api.nexar.com/graphql/"
     }
   }
 }
