@@ -151,7 +151,7 @@ namespace Nexar.ReleaseComponent
         private static async Task<List<DesReleaseComponentFileInput>> UploadFilesAsync(string root)
         {
             var result = new List<DesReleaseComponentFileInput>();
-            var uploadUrl = App.FilesClient.BaseAddress.AbsoluteUri + "/File/Upload";
+            var uploadUrl = App.FilesClient.BaseAddress.AbsoluteUri.TrimEnd('/') + "/File/Upload";
             foreach (var file in Directory.EnumerateFiles(root, "*.*", SearchOption.AllDirectories))
             {
                 using (var form = new MultipartFormDataContent())

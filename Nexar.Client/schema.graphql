@@ -57,6 +57,7 @@ type Query {
   desManufacturePackages: [DesManufacturePackage!]!
   desManufacturePackageById(id: ID!): DesManufacturePackage
   desManufacturePackageCreationJob(id: ID!): DesManufacturePackageCreationJob
+  supOctopartIdFromCiivaId(workspaceUrl: String! ciivaId: String!): String
   "Get all attributes"
   supAttributes: [SupAttribute!]!
   "Get manufacturer companies"
@@ -2087,6 +2088,7 @@ type ManBoardMeta {
   projectId: String
   boardDetails: ManBoardDetails
   parts: [ManPart]
+  consignmentCount: Int!
   bomIssues: ManBomIssues!
   placementStats: ManPlacementInfo
   minClearance: ManLength
@@ -2169,6 +2171,10 @@ type ManOrderCancelEvent implements ManOrderEvent {
 type ManOrderConsignmentDetailsEvent implements ManOrderEvent {
   eventType: ManOrderEventType!
   timestamp: Int!
+  shipping: ManShippingDetails!
+  receiveBy: DateTime!
+  consignmentId: ID!
+  parts: [ManPartQuantity!]!
 }
 
 type ManOrderCreatedEvent implements ManOrderEvent {
@@ -2265,6 +2271,12 @@ type ManPartChoice {
   octopartId: String
   image: String
   octopartUrl: String
+}
+
+type ManPartQuantity {
+  reference: String!
+  quantity: Int!
+  linkedPart: ManPartChoice
 }
 
 type ManPathSegment {
@@ -2421,8 +2433,8 @@ input ManOrderConsignmentDetailsInput {
   orderId: ID!
   shipping: ManShippingDetailsInput!
   receiveBy: DateTime!
-  consigmentId: ID!
-  partQuantities: ManPartQuantityInput!
+  consignmentId: ID!
+  partQuantities: [ManPartQuantityInput!]!
 }
 
 input ManOrderEmsAcceptInput {
