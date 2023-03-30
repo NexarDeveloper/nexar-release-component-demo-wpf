@@ -15,23 +15,8 @@ namespace Nexar.ReleaseComponent
         public static NexarClient Client { get; private set; }
         public static HttpClient FilesClient { get; private set; }
         public static IReadOnlyList<IMyWorkspace> Workspaces { get; private set; }
-        public static string Username => Login.Username;
 
-        public static LoginInfo Login { get; private set; }
-
-        private void Application_Startup(object sender, StartupEventArgs e)
-        {
-            var args = e.Args;
-            if (args.Length > 1)
-            {
-                MessageBox.Show("Usage: [endpoint]", Config.MyTitle, MessageBoxButton.OK, MessageBoxImage.Asterisk);
-                Environment.Exit(1);
-            }
-
-            // custom api endpoint
-            if (args.Length > 0 && !args[0].StartsWith("-"))
-                Config.ApiEndpoint = args[0];
-        }
+        public static string NexarToken { get; private set; }
 
         /// <summary>
         /// Run this as a task after the window is shown.
@@ -46,20 +31,25 @@ namespace Nexar.ReleaseComponent
             try
             {
                 // login and get the token
-                var clientId = Environment.GetEnvironmentVariable("NEXAR_CLIENT_ID") ?? throw new InvalidOperationException("Please set environment 'NEXAR_CLIENT_ID'");
-                var clientSecret = Environment.GetEnvironmentVariable("NEXAR_CLIENT_SECRET") ?? throw new InvalidOperationException("Please set environment 'NEXAR_CLIENT_SECRET'");
-                Login = await LoginHelper.LoginAsync(
-                    clientId,
-                    clientSecret,
-                    new string[] { "user.access", "design.domain" },
-                    Config.Authority);
+                if (Config.Authority.StartsWith("http"))
+                {
+                    var clientId = Environment.GetEnvironmentVariable("NEXAR_CLIENT_ID") ?? throw new InvalidOperationException("Please set environment 'NEXAR_CLIENT_ID'");
+                    var clientSecret = Environment.GetEnvironmentVariable("NEXAR_CLIENT_SECRET") ?? throw new InvalidOperationException("Please set environment 'NEXAR_CLIENT_SECRET'");
+                    var login = await LoginHelper.LoginAsync(
+                        clientId,
+                        clientSecret,
+                        new string[] { "user.access", "design.domain" },
+                        Config.Authority);
+                    NexarToken = login.AccessToken;
+                }
+                else
+                {
+                    NexarToken = Config.Authority;
+                }
 
                 // configure files client
-                FilesClient = new HttpClient
-                {
-                    BaseAddress = new Uri(Config.FilesEndpoint)
-                };
-                FilesClient.DefaultRequestHeaders.Add("token", Login.AccessToken);
+                FilesClient = new HttpClient { BaseAddress = new Uri(Config.FilesEndpoint) };
+                FilesClient.DefaultRequestHeaders.Add("token", NexarToken);
             }
             catch (Exception ex)
             {
@@ -78,7 +68,7 @@ namespace Nexar.ReleaseComponent
                     .ConfigureHttpClient(c =>
                     {
                         c.BaseAddress = new Uri(Config.ApiEndpoint);
-                        c.DefaultRequestHeaders.Add("token", Login.AccessToken);
+                        c.DefaultRequestHeaders.Add("Authorization", $"Bearer {NexarToken}");
                     })
                 ;
                 var services = serviceCollection.BuildServiceProvider();
