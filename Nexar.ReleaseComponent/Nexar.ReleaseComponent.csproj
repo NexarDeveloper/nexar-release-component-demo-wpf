@@ -244,6 +244,7 @@
     </ApplicationDefinition>
     <Compile Include="Core\ClientHelper.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="Core\FolderTreeNode.cs" />
     <Compile Include="Core\Tree.cs" />
     <Compile Include="ReleaseWindow.xaml.cs">
       <DependentUpon>ReleaseWindow.xaml</DependentUpon>

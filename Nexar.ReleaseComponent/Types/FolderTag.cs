@@ -1,24 +1,43 @@
 ﻿using Nexar.Client;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Nexar.ReleaseComponent.Types
 {
     sealed class FolderTag
     {
-        public string Name { get; }
-        public IEnumerable<IMyComponent> Components { get; }
-        public WorkspaceTag Workspace { get; }
+        readonly WorkspaceTag _workspace;
+        readonly FolderTreeNode _folderNode;
+        readonly List<FolderTag> _myFolders;
+        readonly List<IMyComponent> _myComponents;
 
-        public FolderTag(string name, IEnumerable<IMyComponent> components, WorkspaceTag workspace)
+        public string Name => _folderNode.Folder.Name;
+        public WorkspaceTag Workspace => _workspace;
+
+        public IReadOnlyList<FolderTag> Folders => _myFolders;
+        public IReadOnlyList<IMyComponent> Components => _myComponents;
+        public bool CanExpand => _myFolders.Count + _myComponents.Count > 0;
+
+        public FolderTag(FolderTreeNode folderNode, IEnumerable<IMyComponent> components, WorkspaceTag workspace)
         {
-            Name = name;
-            Components = components;
-            Workspace = workspace;
+            _workspace = workspace;
+            _folderNode = folderNode;
+
+            _myFolders = folderNode.Nodes
+                .Select(x => new FolderTag(x, components, workspace))
+                .ToList();
+
+            var folderId = folderNode.Folder.Id;
+            _myComponents = components
+                .Where(x => x.Folder?.Id == folderId)
+                .OrderBy(x => x.Name)
+                .ToList();
         }
 
         public override string ToString()
         {
-            return Name ?? "<No folder>";
+            var name = Name;
+            return string.IsNullOrEmpty(name) ? "<empty>" : name;
         }
     }
 }

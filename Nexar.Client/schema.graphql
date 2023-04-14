@@ -50,6 +50,7 @@ type Query {
   desDesignItemById(id: ID!): DesDesignItem
   desLibrary(workspaceUrl: String!): DesLibrary!
   desComponentById(id: ID!): DesComponent
+  desComponentsByIds(ids: [ID!]!): [DesUnionPayload!]!
   desRevisionDetailsById(id: ID!): DesRevisionDetails
   desComponentTemplateById(id: ID!): DesComponentTemplate
   "Search for comment threads associated with a project."
@@ -122,6 +123,7 @@ type Query {
   datBomParts(items: [DatBomItemInput!]!): [DatBomPartsResult!]!
   datBomPartHistories(partIds: [String!]!): [DatBomPartHistory]!
   datBomAnalyses(items: [DatBomPartItemInput!]!): [DatBomAnalysis!]!
+  datBomCategoryIdsByDesignator(designators: [String!]!): [DatBomCategory]!
   "Get an SCR Job with a specific id"
   datScrJob("The id of the job" jobId: String!): DatScrJob!
   "Get a list of SCR jobs."
@@ -257,7 +259,7 @@ type DesBomItem {
   "The detailed component information for this BOM item."
   component: DesComponent
   "The total number of times this item is used."
-  quantity: Decimal!
+  quantity: Int!
   "The list of each instance of this BOM item."
   bomItemInstances: [DesBomItemInstance!]!
 }
@@ -551,6 +553,8 @@ type DesDesignItem implements Node {
   id: ID!
   "The detailed component information for this design item."
   component: DesComponent
+  "*** PROTOTYPE, SUBJECT TO CHANGE ***"
+  mesh3D: DesMesh3D
   "The list of all comment threads related to this design item."
   commentThreads: [DesCommentThread!]
   "The unique label for this design item."
@@ -602,9 +606,16 @@ type DesDownloadableFile {
   downloadUrl: String!
 }
 
-type DesFolder {
+type DesErrorPayload {
+  message: String!
+}
+
+type DesFolder implements Node {
+  id: ID!
   name: String!
+  path: String!
   description: String!
+  parent: DesFolder
 }
 
 type DesFootprint {
@@ -664,6 +675,8 @@ type DesLayerProperty {
 }
 
 type DesLibrary {
+  "Gets library folders."
+  folders: [DesFolder!]!
   "Gets library components."
   components("Returns the first N elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last N elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: DesComponentFilterInput): DesComponentConnection
   "Gets library component templates."
@@ -716,6 +729,10 @@ type DesManufacturerPart {
 type DesMention {
   "The mentioned user."
   user: DesUser!
+}
+
+type DesMesh3D {
+  glbFile: DesDownloadableFile
 }
 
 type DesModel3D {
@@ -1469,6 +1486,8 @@ type SupPartExtrasTechnicalDetail {
   name: String!
   value: String!
 }
+
+union DesUnionPayload = DesComponent | DesErrorPayload
 
 input BooleanOperationFilterInput {
   eq: Boolean
@@ -3638,6 +3657,10 @@ type DatBomAnalysis {
   message: String!
 }
 
+type DatBomCategory {
+  categoryID: Int!
+}
+
 type DatBomPart {
   partId: String!
   confidence: Float!
@@ -3651,6 +3674,7 @@ type DatBomPartHistory {
 type DatBomPartItem {
   itemRefId: String
   partId: String!
+  alternateCandidatePartIds: [String!]
   quantity: Int!
 }
 
@@ -3826,11 +3850,14 @@ input DatBomItemInput {
   itemRefId: String
   manufacturerName: String
   mpn: String
+  description: String
+  designator: String
 }
 
 input DatBomPartItemInput {
   itemRefId: String
   partId: String!
+  alternateCandidatePartIds: [String!]
   quantity: Int!
 }
 

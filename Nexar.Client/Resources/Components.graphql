@@ -83,6 +83,6 @@ fragment MyComponent on DesComponent {
     id
   }
   folder {
-    name
+    id
   }
 }
