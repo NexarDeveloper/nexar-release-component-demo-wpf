@@ -1,12 +1,10 @@
-.graphqlrc.json
 .vs
 bin
 obj
-Debug
-Release
-packages
-Generated
 z
 z.*
 *.user
 launchSettings.json
+
+# VS StrawberryShake
+/.graphqlrc.json
