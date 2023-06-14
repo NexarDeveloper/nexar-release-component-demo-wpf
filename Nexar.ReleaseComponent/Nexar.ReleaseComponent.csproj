@@ -5,7 +5,7 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Nexar.Client.Login" Version="0.3.0" />
+    <PackageReference Include="Nexar.Client.Login" Version="0.3.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Nexar.Client\Nexar.Client.csproj" />
