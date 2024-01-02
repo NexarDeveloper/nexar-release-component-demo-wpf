@@ -111,7 +111,7 @@ namespace Nexar.ReleaseComponent
             var foldersTask = Task.Run(async () =>
             {
                 var res = await App.Client.Folders.ExecuteAsync(workspace.Tag.Url);
-                ClientHelper.EnsureNoErrors(res);
+                res.AssertNoErrors();
 
                 var rootFolders = FolderTreeNode.GetRootNodes(res.Data.DesLibrary.Folders);
                 return rootFolders;
@@ -125,7 +125,7 @@ namespace Nexar.ReleaseComponent
                 while (true)
                 {
                     var res = await App.Client.Components.ExecuteAsync(workspace.Tag.Url, 1000, endCursor);
-                    ClientHelper.EnsureNoErrors(res);
+                    res.AssertNoErrors();
                     var data = res.Data.DesLibrary.Components;
                     list.AddRange(data.Nodes);
                     if (!data.PageInfo.HasNextPage)
@@ -232,7 +232,7 @@ namespace Nexar.ReleaseComponent
                     var revision = Task.Run(async () =>
                     {
                         var res = await App.Client.RevisionDetailsById.ExecuteAsync(revisionId);
-                        ClientHelper.EnsureNoErrors(res);
+                        res.AssertNoErrors();
                         return res.Data.DesRevisionDetailsById;
                     }).Result;
 

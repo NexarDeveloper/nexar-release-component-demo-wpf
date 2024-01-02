@@ -41,7 +41,7 @@ namespace Nexar.ReleaseComponent
                     var data = Task.Run(async () =>
                     {
                         var res = await App.Client.ReleaseDefinitions.ExecuteAsync(_workspaceUrl);
-                        ClientHelper.EnsureNoErrors(res);
+                        res.AssertNoErrors();
                         return res.Data;
                     }).Result;
 
@@ -220,7 +220,7 @@ namespace Nexar.ReleaseComponent
             Task.Run(async () =>
             {
                 var res = await App.Client.ReleaseComponent.ExecuteAsync(input);
-                ClientHelper.EnsureNoErrors(res);
+                res.AssertNoErrors();
             }).Wait();
         }
     }
