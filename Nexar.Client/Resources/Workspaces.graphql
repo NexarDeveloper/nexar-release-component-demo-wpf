@@ -1,10 +1,12 @@
-﻿query Workspaces {
-  desWorkspaces {
+﻿# Gets user workspaces.
+query Workspaces {
+  desWorkspaceInfos {
     ...MyWorkspace
   }
 }
 
-fragment MyWorkspace on DesWorkspace {
+# This fragment becomes IMyWorkspace in C#.
+fragment MyWorkspace on DesWorkspaceInfo {
   name
   url
 }

@@ -64,7 +64,7 @@ namespace Nexar.ReleaseComponent
                 Client = NexarClientFactory.CreateClient(Config.ApiEndpoint, NexarToken);
                 var res = await Client.Workspaces.ExecuteAsync();
                 res.AssertNoErrors();
-                Workspaces = res.Data.DesWorkspaces;
+                Workspaces = res.Data.DesWorkspaceInfos;
             }
             catch (Exception ex)
             {
