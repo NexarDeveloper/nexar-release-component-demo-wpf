@@ -1,4 +1,4 @@
-﻿namespace Nexar.ReleaseComponent.Types
+﻿namespace Nexar.ReleaseComponent
 {
     abstract class TagType<T>
     {

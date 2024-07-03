@@ -1,6 +1,6 @@
 ﻿using Nexar.Client;
 
-namespace Nexar.ReleaseComponent.Types
+namespace Nexar.ReleaseComponent
 {
     sealed class ComponentTag : TagType<IMyComponent>
     {

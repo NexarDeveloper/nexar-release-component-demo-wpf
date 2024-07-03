@@ -3870,8 +3870,10 @@ input DesReleaseComponentFileInput {
 input DesReleaseComponentInput {
   "Workspace URL for releasing a component."
   workspaceUrl: String!
-  "Destination folder for releasing a component."
-  componentReleaseFolder: String!
+  "Destination parent folder identifier for releasing a component. If omitted or empty, `componentReleaseFolder` is required."
+  componentParentFolderId: ID
+  "New child folder name for releasing a component. If omitted or empty, `ComponentParentFolderId` is required."
+  componentReleaseFolder: String
   "Name of component item."
   componentItemName: String!
   "Revision naming scheme identifier for component."

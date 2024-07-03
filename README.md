@@ -32,6 +32,7 @@ The identity server sign in page appears. Enter your credentials and click `Sign
 The application window appears with the left tree panel populated with your workspaces.
 
 Select a workspace to enable the "Release" button.
+Optionally expand the workspace and click a folder to be used as component parent.
 Click the "Release" button to show the component release dialog with various inputs.
 
 Expand workspaces to component folders, expand folders to components, select a component.

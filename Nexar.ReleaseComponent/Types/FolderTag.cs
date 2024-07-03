@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nexar.ReleaseComponent.Types
+namespace Nexar.ReleaseComponent
 {
     sealed class FolderTag
     {
@@ -11,6 +11,7 @@ namespace Nexar.ReleaseComponent.Types
         readonly List<FolderTag> _myFolders;
         readonly List<IMyComponent> _myComponents;
 
+        public string Id => _folderNode.Folder.Id;
         public string Name => _folderNode.Folder.Name;
         public WorkspaceTag Workspace => _workspace;
 

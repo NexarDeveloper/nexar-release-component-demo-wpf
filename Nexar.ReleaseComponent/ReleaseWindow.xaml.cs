@@ -15,6 +15,7 @@ namespace Nexar.ReleaseComponent
     {
         private static string _workspaceUrl;
         private static string _lastWorkspaceUrl;
+        private static FolderTag _folderTag;
         private static IMyRevisionNamingScheme[] _schemes;
         private static IMyLifeCycleDefinition[] _cycles;
         private static string _defaultSymbolFolder;
@@ -26,9 +27,10 @@ namespace Nexar.ReleaseComponent
         private static IMyLifeCycleDefinition _cycleFootprint;
         private static IMyLifeCycleDefinition _cycleComponent;
 
-        internal ReleaseWindow(string workspaceUrl)
+        internal ReleaseWindow(string workspaceUrl, FolderTag folderTag)
         {
             _workspaceUrl = workspaceUrl;
+            _folderTag = folderTag;
 
             InitializeComponent();
 
@@ -38,12 +40,7 @@ namespace Nexar.ReleaseComponent
                 if (_lastWorkspaceUrl != _workspaceUrl)
                 {
                     // query data for combos
-                    var data = Task.Run(async () =>
-                    {
-                        var res = await App.Client.ReleaseDefinitions.ExecuteAsync(_workspaceUrl);
-                        res.AssertNoErrors();
-                        return res.Data;
-                    }).Result;
+                    var data = Task.Run(() => App.Client.GetReleaseDefinitionsAsync(_workspaceUrl)).Result;
 
                     // current combo data
                     _schemes = data.DesRevisionNamingSchemes.OrderBy(x => x.Name).ToArray();
@@ -101,16 +98,17 @@ namespace Nexar.ReleaseComponent
         {
             var stamp = DateTime.UtcNow.ToString("yyMMdd_HHmmss");
 
-            TextComponentReleaseFolder.Text = $"Components {stamp}";
-            TextComponentItemName.Text = $"CMP {stamp}";
-            TextComponentComment.Text = $"CMP {stamp}";
-            TextComponentDescription.Text = $"Description {stamp}";
+            TextComponentParentFolder.Text = _folderTag is null ? "<root>" : _folderTag.Name;
+            TextComponentReleaseFolder.Text = $"x-Component {stamp}";
+            TextComponentItemName.Text = $"x-CMP {stamp}";
+            TextComponentComment.Text = $"x-CMP {stamp}";
+            TextComponentDescription.Text = $"x-Description {stamp}";
 
-            TextSymbolReleaseFolder.Text = _defaultSymbolFolder ?? $"Symbols {stamp}";
-            TextSymbolItemName.Text = $"SYM {stamp}";
+            TextSymbolReleaseFolder.Text = _defaultSymbolFolder ?? $"x-Symbols {stamp}";
+            TextSymbolItemName.Text = $"x-SYM {stamp}";
 
-            TextFootprintReleaseFolder.Text = _defaultFootprintFolder ?? $"Footprints {stamp}";
-            TextFootprintItemName.Text = $"PCC {stamp}";
+            TextFootprintReleaseFolder.Text = _defaultFootprintFolder ?? $"x-Footprints {stamp}";
+            TextFootprintItemName.Text = $"x-PCC {stamp}";
         }
 
         // Called on clicking the "Reset" button.
@@ -194,6 +192,7 @@ namespace Nexar.ReleaseComponent
             var input = new DesReleaseComponentInput
             {
                 WorkspaceUrl = _workspaceUrl,
+                ComponentParentFolderId = _folderTag?.Id, 
                 ComponentReleaseFolder = TextComponentReleaseFolder.Text,
                 ComponentItemName = TextComponentItemName.Text,
                 ComponentComment = TextComponentComment.Text,
@@ -217,11 +216,7 @@ namespace Nexar.ReleaseComponent
                 FootprintLifeCycleDefinitionId = _cycles[ComboFootprintCycles.SelectedIndex].LifeCycleDefinitionId,
             };
 
-            Task.Run(async () =>
-            {
-                var res = await App.Client.ReleaseComponent.ExecuteAsync(input);
-                res.AssertNoErrors();
-            }).Wait();
+            Task.Run(() => App.Client.ReleaseComponentAsync(input)).Wait();
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using Nexar.Client;
 using Nexar.ReleaseComponent.Properties;
-using Nexar.ReleaseComponent.Types;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -18,6 +16,7 @@ namespace Nexar.ReleaseComponent
     public partial class MainWindow : Window
     {
         private string _workspaceUrl;
+        private FolderTag _folderTag;
         private TreeViewItem _selectedItem;
 
         /// <summary>
@@ -110,30 +109,13 @@ namespace Nexar.ReleaseComponent
             // fetch folders
             var foldersTask = Task.Run(async () =>
             {
-                var res = await App.Client.Folders.ExecuteAsync(workspace.Tag.Url);
-                res.AssertNoErrors();
-
-                var rootFolders = FolderTreeNode.GetRootNodes(res.Data.DesLibrary.Folders);
+                var allFolders = await App.Client.GetFolders(workspace.Tag.Url);
+                var rootFolders = FolderTreeNode.GetRootNodes(allFolders);
                 return rootFolders;
             });
 
-            // fetch components (shallow info) with paging
-            var componentsTask = Task.Run(async () =>
-            {
-                var list = new List<IMyComponent>();
-                string endCursor = null;
-                while (true)
-                {
-                    var res = await App.Client.Components.ExecuteAsync(workspace.Tag.Url, 1000, endCursor);
-                    res.AssertNoErrors();
-                    var data = res.Data.DesLibrary.Components;
-                    list.AddRange(data.Nodes);
-                    if (!data.PageInfo.HasNextPage)
-                        break;
-                    endCursor = data.PageInfo.EndCursor;
-                }
-                return list;
-            });
+            // fetch components (shallow info)
+            var componentsTask = Task.Run(() => App.Client.GetComponentsAsync(workspace.Tag.Url));
 
             var folders = foldersTask.Result;
             var components = componentsTask.Result;
@@ -211,6 +193,7 @@ namespace Nexar.ReleaseComponent
             if (item.Tag is WorkspaceTag workspace)
             {
                 _workspaceUrl = workspace.Tag.Url;
+                _folderTag = null;
                 ButtonRelease.IsEnabled = true;
                 return;
             }
@@ -218,6 +201,7 @@ namespace Nexar.ReleaseComponent
             if (item.Tag is FolderTag folder)
             {
                 _workspaceUrl = folder.Workspace.Tag.Url;
+                _folderTag = folder;
                 ButtonRelease.IsEnabled = true;
                 return;
             }
@@ -225,16 +209,11 @@ namespace Nexar.ReleaseComponent
             if (item.Tag is ComponentTag component)
             {
                 _workspaceUrl = component.Workspace.Tag.Url;
+                _folderTag = null;
                 ButtonRelease.IsEnabled = true;
                 using (new WaitCursor())
                 {
-                    var revisionId = component.Tag.Revision.Id;
-                    var revision = Task.Run(async () =>
-                    {
-                        var res = await App.Client.RevisionDetailsById.ExecuteAsync(revisionId);
-                        res.AssertNoErrors();
-                        return res.Data.DesRevisionDetailsById;
-                    }).Result;
+                    var revision = Task.Run(() => App.Client.GetRevisionDetailsByIdAsync(component.Tag.Revision.Id)).Result;
 
                     var sb = new StringBuilder();
                     sb.AppendLine();
@@ -278,7 +257,7 @@ namespace Nexar.ReleaseComponent
                 return;
 
             // show the release dialog, exit on cancel
-            var form = new ReleaseWindow(_workspaceUrl);
+            var form = new ReleaseWindow(_workspaceUrl, _folderTag);
             if (form.ShowDialog() != true)
                 return;
 
