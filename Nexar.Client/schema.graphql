@@ -102,6 +102,8 @@ type Query {
   supPartIdsFromCiivaIds(ciivaIds: [String!]!): [String]!
   "Nexar infrastructure, subject to change."
   supCiivaIdFromPartId(partId: String!): String
+  "Nexar infrastructure, subject to change."
+  supCiivaIdsFromPartIds(partIds: [String!]!): [String]!
   "Nexar supply part data for internal use only."
   supPartExtrasByPartId(partId: String!): SupPartExtras
   "Nexar supply part data for internal use only."
@@ -1037,6 +1039,10 @@ type DesComponent implements Node {
   comment: String!
   "The summary of function or other performance details for this component."
   description: String!
+  "The `DateTime` when this component was created."
+  createdAt: DateTime!
+  "The `DateTime` when this component was last modified."
+  modifiedAt: DateTime!
   "Gets true if the component is managed."
   isManaged: Boolean!
   "The component revision."
@@ -2155,6 +2161,10 @@ type DesRevisionDetails {
   description: String
   "Revision comment."
   comment: String
+  "The `DateTime` when this revision was created."
+  createdAt: DateTime!
+  "The `DateTime` when this revision was last modified."
+  modifiedAt: DateTime!
 }
 
 "Revision naming scheme details obtained by `desLibrary\/revisionNamingSchemes`. More information is available on revision naming schemes at: https:\/\/www.altium.com\/documentation\/altium-designer\/accessing-detailed-item-view#!revision_naming_scheme_dlg"
@@ -3876,10 +3886,14 @@ input DesReleaseComponentInput {
   componentReleaseFolder: String
   "Name of component item."
   componentItemName: String!
-  "Revision naming scheme identifier for component."
+  "**DEPRECATED** Use `componentRevisionNamingSchemeNodeId` instead with a value from `DesRevisionNamingScheme.id`."
   componentRevisionNamingSchemeId: String
-  "Life cycle definition identifier for component."
+  "Revision naming scheme identifier for component."
+  componentRevisionNamingSchemeNodeId: ID
+  "**DEPRECATED** Use `componentLifeCycleDefinitionNodeId` instead with a value from `DesLifeCycleDefinition.id`."
   componentLifeCycleDefinitionId: String
+  "Life cycle definition identifier for component."
+  componentLifeCycleDefinitionNodeId: ID
   "Comment for component."
   componentComment: String
   "Description for component."
@@ -3892,20 +3906,28 @@ input DesReleaseComponentInput {
   symbolItemName: String
   "The symbol files."
   symbolFiles: [DesReleaseComponentFileInput!]!
-  "The symbol revision naming scheme identifier."
+  "**DEPRECATED** Use `symbolRevisionNamingSchemeNodeId` instead with a value from `DesRevisionNamingScheme.id`."
   symbolRevisionNamingSchemeId: String
-  "The symbol life cycle definition identifier."
+  "The symbol revision naming scheme identifier."
+  symbolRevisionNamingSchemeNodeId: ID
+  "**DEPRECATED** Use `symbolLifeCycleDefinitionNodeId` instead with a value from `DesLifeCycleDefinition.id`."
   symbolLifeCycleDefinitionId: String
+  "The symbol life cycle definition identifier."
+  symbolLifeCycleDefinitionNodeId: ID
   "The footprint folder path, existing or to be created."
   footprintReleaseFolder: String!
   "The footprint name. Use null to be generated."
   footprintItemName: String
   "The footprint files."
   footprintFiles: [DesReleaseComponentFileInput!]!
-  "The footprint revision naming scheme identifier."
+  "**DEPRECATED** Use `footprintRevisionNamingSchemeNodeId` instead with a value from `DesRevisionNamingScheme.id`."
   footprintRevisionNamingSchemeId: String
-  "The footprint life cycle definition identifier."
+  "The footprint revision naming scheme identifier."
+  footprintRevisionNamingSchemeNodeId: ID
+  "**DEPRECATED** Use `footprintLifeCycleDefinitionNodeId` instead with a value from `DesLifeCycleDefinition.id`."
   footprintLifeCycleDefinitionId: String
+  "The footprint life cycle definition identifier."
+  footprintLifeCycleDefinitionNodeId: ID
 }
 
 "Input for releasing a component template."

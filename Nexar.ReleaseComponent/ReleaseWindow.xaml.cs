@@ -74,7 +74,7 @@ namespace Nexar.ReleaseComponent
                 foreach (var scheme in _schemes)
                     combo.Items.Add(scheme.Name);
 
-                combo.SelectedIndex = Array.FindIndex(_schemes, x => x.RevisionNamingSchemeId == select.RevisionNamingSchemeId);
+                combo.SelectedIndex = Array.FindIndex(_schemes, x => x.Id == select.Id);
             }
             PopulateNamingSchemes(ComboComponentSchemes, _schemeComponent);
             PopulateNamingSchemes(ComboSymbolSchemes, _schemeSymbol);
@@ -86,7 +86,7 @@ namespace Nexar.ReleaseComponent
                 foreach (var cycle in _cycles)
                     combo.Items.Add(cycle.Name);
 
-                combo.SelectedIndex = Array.FindIndex(_cycles, x => x.LifeCycleDefinitionId == select.LifeCycleDefinitionId);
+                combo.SelectedIndex = Array.FindIndex(_cycles, x => x.Id == select.Id);
             }
             PopulateLifeCycles(ComboComponentCycles, _cycleComponent);
             PopulateLifeCycles(ComboSymbolCycles, _cycleSymbol);
@@ -197,8 +197,8 @@ namespace Nexar.ReleaseComponent
                 ComponentItemName = TextComponentItemName.Text,
                 ComponentComment = TextComponentComment.Text,
                 ComponentDescription = TextComponentDescription.Text,
-                ComponentRevisionNamingSchemeId = _schemes[ComboComponentSchemes.SelectedIndex].RevisionNamingSchemeId,
-                ComponentLifeCycleDefinitionId = _cycles[ComboComponentCycles.SelectedIndex].LifeCycleDefinitionId,
+                ComponentRevisionNamingSchemeNodeId = _schemes[ComboComponentSchemes.SelectedIndex].Id,
+                ComponentLifeCycleDefinitionNodeId = _cycles[ComboComponentCycles.SelectedIndex].Id,
                 Parameters = new DesRevisionParameterInput[]
                 {
                         new DesRevisionParameterInput { Name = "Parameter1", Value = TextParameter1.Text },
@@ -207,13 +207,13 @@ namespace Nexar.ReleaseComponent
                 SymbolReleaseFolder = TextSymbolReleaseFolder.Text,
                 SymbolItemName = useUserDefinedNames ? TextSymbolItemName.Text : null,
                 SymbolFiles = symbolUploads,
-                SymbolRevisionNamingSchemeId = _schemes[ComboSymbolSchemes.SelectedIndex].RevisionNamingSchemeId,
-                SymbolLifeCycleDefinitionId = _cycles[ComboSymbolCycles.SelectedIndex].LifeCycleDefinitionId,
+                SymbolRevisionNamingSchemeNodeId = _schemes[ComboSymbolSchemes.SelectedIndex].Id,
+                SymbolLifeCycleDefinitionNodeId = _cycles[ComboSymbolCycles.SelectedIndex].Id,
                 FootprintReleaseFolder = TextFootprintReleaseFolder.Text,
                 FootprintItemName = useUserDefinedNames ? TextFootprintItemName.Text : null,
                 FootprintFiles = footprintUploads,
-                FootprintRevisionNamingSchemeId = _schemes[ComboFootprintSchemes.SelectedIndex].RevisionNamingSchemeId,
-                FootprintLifeCycleDefinitionId = _cycles[ComboFootprintCycles.SelectedIndex].LifeCycleDefinitionId,
+                FootprintRevisionNamingSchemeNodeId = _schemes[ComboFootprintSchemes.SelectedIndex].Id,
+                FootprintLifeCycleDefinitionNodeId = _cycles[ComboFootprintCycles.SelectedIndex].Id,
             };
 
             Task.Run(() => App.Client.ReleaseComponentAsync(input)).Wait();

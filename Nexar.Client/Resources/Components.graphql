@@ -41,12 +41,12 @@ query ReleaseDefinitions($workspaceUrl: String!) {
 }
 
 fragment MyLifeCycleDefinition on DesLifeCycleDefinition {
-  lifeCycleDefinitionId
+  id
   name
 }
 
 fragment MyRevisionNamingScheme on DesRevisionNamingScheme {
-  revisionNamingSchemeId
+  id
   name
 }
 
