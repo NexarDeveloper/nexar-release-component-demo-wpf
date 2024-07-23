@@ -23,21 +23,24 @@
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <TextBlock Margin="1" Grid.Column="0" Grid.Row="0">Parent folder</TextBlock>
                 <TextBox Margin="1" Grid.Column="1" Grid.Row="0" Name="TextComponentParentFolder" IsEnabled="False"/>
                 <TextBlock Margin="1" Grid.Column="0" Grid.Row="1">Release folder</TextBlock>
                 <TextBox Margin="1" Grid.Column="1" Grid.Row="1" Name="TextComponentReleaseFolder"/>
-                <TextBlock Margin="1" Grid.Column="0" Grid.Row="2">Item name</TextBlock>
-                <TextBox Margin="1" Grid.Column="1" Grid.Row="2" Name="TextComponentItemName"/>
-                <TextBlock Margin="1" Grid.Column="0" Grid.Row="3">Comment</TextBlock>
-                <TextBox Margin="1" Grid.Column="1" Grid.Row="3" Name="TextComponentComment"/>
-                <TextBlock Margin="1" Grid.Column="0" Grid.Row="4">Description</TextBlock>
-                <TextBox Margin="1" Grid.Column="1" Grid.Row="4" Name="TextComponentDescription"/>
-                <TextBlock Margin="1" Grid.Column="0" Grid.Row="5">Revision naming scheme</TextBlock>
-                <ComboBox Margin="1" Grid.Column="1" Grid.Row="5" Name="ComboComponentSchemes" />
-                <TextBlock Margin="1" Grid.Column="0" Grid.Row="6">Life cycle definition</TextBlock>
-                <ComboBox Margin="1" Grid.Column="1" Grid.Row="6" Name="ComboComponentCycles"></ComboBox>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="2">Use existing folder</TextBlock>
+                <CheckBox Margin="1" Grid.Column="1" Grid.Row="2" Name="CheckUseExistingComponentReleaseFolder"/>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="3">Item name</TextBlock>
+                <TextBox Margin="1" Grid.Column="1" Grid.Row="3" Name="TextComponentItemName"/>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="4">Comment</TextBlock>
+                <TextBox Margin="1" Grid.Column="1" Grid.Row="4" Name="TextComponentComment"/>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="5">Description</TextBlock>
+                <TextBox Margin="1" Grid.Column="1" Grid.Row="5" Name="TextComponentDescription"/>
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="6">Revision naming scheme</TextBlock>
+                <ComboBox Margin="1" Grid.Column="1" Grid.Row="6" Name="ComboComponentSchemes" />
+                <TextBlock Margin="1" Grid.Column="0" Grid.Row="7">Life cycle definition</TextBlock>
+                <ComboBox Margin="1" Grid.Column="1" Grid.Row="7" Name="ComboComponentCycles"></ComboBox>
             </Grid>
         </GroupBox>
         <GroupBox>

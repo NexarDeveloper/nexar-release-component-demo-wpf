@@ -194,6 +194,7 @@ namespace Nexar.ReleaseComponent
                 WorkspaceUrl = _workspaceUrl,
                 ComponentParentFolderId = _folderTag?.Id, 
                 ComponentReleaseFolder = TextComponentReleaseFolder.Text,
+                UseExistingComponentReleaseFolder = CheckUseExistingComponentReleaseFolder.IsChecked,
                 ComponentItemName = TextComponentItemName.Text,
                 ComponentComment = TextComponentComment.Text,
                 ComponentDescription = TextComponentDescription.Text,
